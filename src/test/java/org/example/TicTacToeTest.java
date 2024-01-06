@@ -87,9 +87,7 @@ public class TicTacToeTest {
         catch (PlayfieldsCharInputException e){
             System.out.printf("%s", e.getMessage());
         }
-        assertThrows(PlayfieldsCharInputException.class, () -> {
-            board.place(1,0,'k');
-        });
+        assertThrows(PlayfieldsCharInputException.class, () -> board.place(1,0,'k'));
     }
 
     @Test
@@ -191,10 +189,7 @@ public class TicTacToeTest {
                 }
             }
         }
-        assertThrows(PlayfieldsCharInputException.class, () -> {
-                board = new Board(0, testinput);
-
-        });
+        assertThrows(PlayfieldsCharInputException.class, () -> board = new Board(0, testinput));
 
     }
 

@@ -9,7 +9,6 @@ import org.example.PlayfieldsExceptions.PlayfieldsSetOccupiedException;
 public class Board {
 
 
-
     private char[][] cells;
 
     void printout_game() {
@@ -46,9 +45,12 @@ public class Board {
         int count = 0;
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
-                switch(Character.toLowerCase(cells[i][j])){
-                    case ' ': break;
-                    case 'x', 'o': count++; break;
+                switch (Character.toLowerCase(cells[i][j])) {
+                    case ' ':
+                        break;
+                    case 'x', 'o':
+                        count++;
+                        break;
                 }
             }
         }
@@ -69,24 +71,32 @@ public class Board {
         }
     }
 
-    public void clear() throws PlayfieldsClearFailed, PlayfieldsDimensionException{
+    public void clear() throws PlayfieldsClearFailed{
         boolean state = true;
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
-                cells[i][j] = ' ';
-            }
-        }
-            for (int i = 0; i < 3; i++) {
-                for (int j = 0; j < 3; j++) {
-                    try{state = isCellEmpty(i, j);
-                    }
-                    catch(PlayfieldsDimensionException e){
-                        System.out.printf("%s",e.getMessage());}
-                    if(!state){
-                        throw new PlayfieldsClearFailed(String.format("Clearing the Gameboard failed at cell[%d][%d]", i, j));}
+                try {
+                    this.place(i, j, ' ');
+                } catch (PlayfieldsDimensionException | PlayfieldsCharInputException |
+                         PlayfieldsSetOccupiedException e) {
+                    System.out.printf("%s", e.getMessage());
                 }
             }
+        }
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                try {
+                    state = isCellEmpty(i, j);
+                } catch (PlayfieldsDimensionException e) {
+                    System.out.printf("%s", e.getMessage());
+                }
+                if (!state) {
+                    throw new PlayfieldsClearFailed(String.format("Clearing the Gameboard failed at cell[%d][%d]", i, j));
+                }
+            }
+        }
     }
+
     private int turnnumber;
 
     public Board() {
