@@ -17,7 +17,7 @@ public class Board {
 
         for (int i = 0; i < 3; i++) {
             System.out.printf(" | %s | %s | %s |\n", cells[i][0], cells[i][1], cells[i][2]);
-            System.out.printf(" -------------\n");
+            System.out.print(" -------------\n");
         }
     }
 
