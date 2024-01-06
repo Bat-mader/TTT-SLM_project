@@ -1,10 +1,15 @@
 package org.example;
 
+import org.example.PlayfieldsExceptions.PlayfieldsCharInputException;
+import org.example.PlayfieldsExceptions.PlayfieldsClearFailed;
+import org.example.PlayfieldsExceptions.PlayfieldsDimensionException;
+import org.example.PlayfieldsExceptions.PlayfieldsSetOccupiedException;
+
 //As a player, I want to be able to see the current state of the game, so that I can keep track of the moves made by both myself
 public class Board {
 
 
-    private int turnnumber;
+
     private char[][] cells;
 
     void printout_game() {
@@ -18,28 +23,71 @@ public class Board {
     }
 
 
-    public String get_cell(int row, int col) {
+    public char get_cell(int row, int col) throws PlayfieldsDimensionException {
         if (row > 2 || col > 2) {
-            return String.format("Error, one or both of your inputs (row = %d, col = %d) " +
-                    "are outside the possible range of 0,1,2", row, col);
+            throw new PlayfieldsDimensionException(String.format("Error, one or both of your inputs (row = %d, col = %d) " +
+                    "are outside the possible range of 0,1,2", row, col));
         }
 
-        return String.valueOf(this.cells[row][col]);
+        return this.cells[row][col];
     }
 
-    public String set_cell(int row, int col, char input) {
-        if (row > 2 || col > 2) {
-            return String.format("Error, one or both of your inputs (row = %d, col = %d) " +
-                    "are outside the possible range of 0,1,2", row, col);
+    public boolean isCellEmpty(int row, int col) throws PlayfieldsDimensionException {
+        char cellcontent = '\u0000';
+        try {
+            cellcontent = this.get_cell(row, col);
+        } catch (PlayfieldsDimensionException e) {
+            System.out.printf("%s", e.getMessage());
         }
-        if (!(input == 'x' || input == 'o' || input == ' ')) {
-            return String.format("Error, your input (input = %s) is wrong - allowed are 'X' and 'O' (The letter)", input);
+        return cellcontent == ' ';
+    }
+
+    public boolean isFull() {
+        int count = 0;
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                switch(Character.toLowerCase(cells[i][j])){
+                    case ' ': break;
+                    case 'x', 'o': count++; break;
+                }
+            }
+        }
+        return count == 9;
+    }
+
+    public void place(int row, int col, char marker) throws PlayfieldsDimensionException, PlayfieldsCharInputException, PlayfieldsSetOccupiedException {
+        if (row > 2 || col > 2) {
+            throw new PlayfieldsDimensionException(String.format("Error, one or both of your inputs (row = %d, col = %d) " +
+                    "are outside the possible range of 0,1,2", row, col));
+        }
+        if (!(Character.toLowerCase(marker) == 'x' || Character.toLowerCase(marker) == 'o' || marker == ' ')) {
+            throw new PlayfieldsCharInputException(String.format("Error, your input (input = %s) is wrong - allowed are 'X' and 'O' (The letter), or ' ' (Space)", marker));
+        } else if (cells[row][col] != ' ') {
+            throw new PlayfieldsSetOccupiedException(String.format("Error, your desired field %d / %d is already occupied with %c", row, col, cells[row][col]));
         } else {
-            this.cells[row][col] = input;
-            return String.valueOf(input);
+            this.cells[row][col] = marker;
         }
-
     }
+
+    public void clear() throws PlayfieldsClearFailed, PlayfieldsDimensionException{
+        boolean state = true;
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                cells[i][j] = ' ';
+            }
+        }
+            for (int i = 0; i < 3; i++) {
+                for (int j = 0; j < 3; j++) {
+                    try{state = isCellEmpty(i, j);
+                    }
+                    catch(PlayfieldsDimensionException e){
+                        System.out.printf("%s",e.getMessage());}
+                    if(!state){
+                        throw new PlayfieldsClearFailed(String.format("Clearing the Gameboard failed at cell[%d][%d]", i, j));}
+                }
+            }
+    }
+    private int turnnumber;
 
     public Board() {
         cells = new char[3][3];
@@ -56,7 +104,7 @@ public class Board {
         turnnumber = turnnumber_input;
     }
 
-    public Board(int turnnumber_input, char[][] gamefield_input) throws PlayfieldsErrorException {
+    public Board(int turnnumber_input, char[][] gamefield_input) throws PlayfieldsCharInputException {
         this(turnnumber_input);
         cells = new char[3][3];
         for (int i = 0; i < 3; i++) {
@@ -64,10 +112,14 @@ public class Board {
 
                 if (!(Character.toLowerCase(gamefield_input[i][j]) == 'x' ||
                         Character.toLowerCase(gamefield_input[i][j]) == 'o' || Character.toLowerCase(gamefield_input[i][j]) == ' ')) {
-                    throw new PlayfieldsErrorException("Your input for the Board contains Characters" +
-                            " other than 'X' or 'O'");
+                    if (gamefield_input[i][j] == '\u0000') {
+                        cells[i][j] = ' ';
+                        continue;
+                    }
+                    throw new PlayfieldsCharInputException("Your input for the Board contains Characters" +
+                            " other than 'X', 'O' or ' '");
                 } else {
-                    cells[i][j] = gamefield_input[i][j];
+                    cells[i][j] = Character.toLowerCase(gamefield_input[i][j]);
                 }
             }
         }
