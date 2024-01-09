@@ -15,6 +15,14 @@
     </properties>
 
     <dependencies>
+        <!-- JUnit Jupiter API for writing tests -->
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-api</artifactId>
+            <version>5.10.1</version> <!-- Use the same version as in junit-bom -->
+            <scope>test</scope>
+        </dependency>
+
         <!-- Only needed to run tests in a version of IntelliJ IDEA that bundles older versions -->
         <dependency>
             <groupId>org.junit.platform</groupId>
@@ -44,7 +52,6 @@
         </dependencies>
     </dependencyManagement>
 
-
     <build>
         <plugins>
             <plugin>
@@ -54,7 +61,5 @@
             </plugin>
         </plugins>
     </build>
-
-
 
 </project>

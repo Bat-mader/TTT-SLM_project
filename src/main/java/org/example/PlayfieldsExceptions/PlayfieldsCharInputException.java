@@ -1,8 +1,6 @@
-package org.example.PlayfieldsExceptions;
+package src.main.java.org.example.PlayfieldsExceptions;
 
-import org.example.PlayfieldsException;
-
-public class PlayfieldsCharInputException extends PlayfieldsException {
+public class PlayfieldsCharInputException extends Exception {
 
     public PlayfieldsCharInputException(String message) {
         super(message);

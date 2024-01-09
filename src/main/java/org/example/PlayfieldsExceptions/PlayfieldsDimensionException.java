@@ -1,8 +1,6 @@
 package org.example.PlayfieldsExceptions;
 
-import org.example.PlayfieldsException;
-
-public class PlayfieldsDimensionException extends PlayfieldsException {
+public class PlayfieldsDimensionException extends Exception {
 
     public PlayfieldsDimensionException(String message){
         super(message);

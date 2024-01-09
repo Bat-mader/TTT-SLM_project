@@ -1,8 +1,8 @@
 package org.example;
 
-import org.example.PlayfieldsExceptions.PlayfieldsCharInputException;
-import org.example.PlayfieldsExceptions.PlayfieldsDimensionException;
-import org.example.PlayfieldsExceptions.PlayfieldsSetOccupiedException;
+import src.main.java.org.example.PlayfieldsExceptions.PlayfieldsCharInputException;
+import src.main.java.org.example.PlayfieldsExceptions.PlayfieldsDimensionException;
+import src.main.java.org.example.PlayfieldsExceptions.PlayfieldsSetOccupiedException;
 
 import java.util.Scanner;
 

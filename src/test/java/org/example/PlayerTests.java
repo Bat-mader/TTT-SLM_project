@@ -2,6 +2,7 @@ package org.example;
 
 
 import org.junit.jupiter.api.Test;
+import org.example.Player;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

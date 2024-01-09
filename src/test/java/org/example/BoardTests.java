@@ -1,12 +1,13 @@
 package org.example;
 
 
-import org.example.PlayfieldsExceptions.PlayfieldsCharInputException;
-import org.example.PlayfieldsExceptions.PlayfieldsClearFailed;
-import org.example.PlayfieldsExceptions.PlayfieldsDimensionException;
-import org.example.PlayfieldsExceptions.PlayfieldsSetOccupiedException;
+import org.example.Board;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import src.main.java.org.example.PlayfieldsExceptions.PlayfieldsCharInputException;
+import src.main.java.org.example.PlayfieldsExceptions.PlayfieldsClearFailed;
+import src.main.java.org.example.PlayfieldsExceptions.PlayfieldsDimensionException;
+import src.main.java.org.example.PlayfieldsExceptions.PlayfieldsSetOccupiedException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -105,7 +106,7 @@ public class BoardTests {
         board = new Board();
         Assertions.assertDoesNotThrow(()->{
             try{board.place(0,0,'X');
-        } catch (PlayfieldsCharInputException | PlayfieldsDimensionException  | PlayfieldsSetOccupiedException e){
+        } catch (PlayfieldsCharInputException | PlayfieldsDimensionException | PlayfieldsSetOccupiedException e){
                 System.out.printf("%s", e.getMessage());
             }
             board.isCellEmpty(0,0);
