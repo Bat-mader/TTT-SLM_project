@@ -19,62 +19,45 @@ public class TicTacToe {
         this.currentPlayer = this.player1;
     }
 
-    private int getRow(){
-        Scanner line = new Scanner(System.in);
-        String fetchedLine = line.nextLine();
-        int row;
-        try{
-            row = Integer.parseInt(fetchedLine);
-            if(row >=0 && row <= 2){
-                return row;
-            }else{
-                System.out.println("Please input a valid number for row (0-2): ");
-                getRow();
+    private int[] getCoordinates() {
+        Scanner scanner = new Scanner(System.in);
+        int row = -1, column = -1;
+
+        while (row < 0 || row > 2 || column < 0 || column > 2) {
+            System.out.print("Enter row and column (0-2), separated by a space: ");
+            if (scanner.hasNextInt()) {
+                row = scanner.nextInt();
             }
-        }catch(NumberFormatException e){
-            System.out.println("Please input a valid number for row (0-2): ");
-            getRow();
+            if (scanner.hasNextInt()) {
+                column = scanner.nextInt();
+            }
+            if (row < 0 || row > 2 || column < 0 || column > 2) {
+                System.out.println("Invalid input. Please enter valid row and column numbers.");
+                scanner.nextLine(); // Clear the buffer
+            }
         }
-        return 0;
+        return new int[]{row, column};
     }
 
-    private int getColumn(){
-        Scanner line = new Scanner(System.in);
-        String fetchedLine = line.nextLine();
-        int column;
-        try{
-            column = Integer.parseInt(fetchedLine);
-            if(column >=0 && column <= 2){
-                return column;
-            }else{
-                System.out.println("Please input a valid number for column (0-2): ");
-                getColumn();
-            }
-        }catch(NumberFormatException e){
-            System.out.println("Please input a valid number for column (0-2): ");
-            getColumn();
-        }
-        return 0;
-    }
 
     void execution() throws PlayfieldsDimensionException, PlayfieldsCharInputException, PlayfieldsSetOccupiedException {
-        System.out.println("\nIt's "+currentPlayer.getMarker()+" Players turn.");
+        System.out.println("\nIt's " + currentPlayer.getMarker() + " Player's turn.");
         board.print();
 
-        System.out.print("Enter row (0-2): ");
-        int row = getRow();
-        System.out.print("Enter column (0-2): ");
-        int column = getColumn();
+        int[] coordinates = getCoordinates();
+        int row = coordinates[0];
+        int column = coordinates[1];
 
-        if(board.isCellEmpty(row,column)){
+        if (board.isCellEmpty(row, column)) {
             board.place(row, column, currentPlayer.getMarker());
-        }else{
+        } else {
             System.out.println("This cell is already occupied.");
             execution();
         }
 
         this.switchCurrentPlayer();
     }
+
 
     public void start() throws PlayfieldsDimensionException, PlayfieldsCharInputException, PlayfieldsSetOccupiedException {
         while(!board.isFull() && !this.hasWinner()){
@@ -89,6 +72,25 @@ public class TicTacToe {
             board.print();
             System.out.println("Game ended in a draw!");
         }
+    }
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        String playAgain;
+
+        do {
+            TicTacToe game = new TicTacToe();
+            try {
+                game.start();
+            } catch (PlayfieldsDimensionException | PlayfieldsCharInputException | PlayfieldsSetOccupiedException e) {
+                e.printStackTrace();
+            }
+
+            System.out.println("Do you want to play again? (yes/no)");
+            playAgain = scanner.nextLine();
+        } while (playAgain.equalsIgnoreCase("yes"));
+
+        System.out.println("Thank you for playing!");
     }
 
     private void switchCurrentPlayer(){
