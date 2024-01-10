@@ -18,7 +18,7 @@ public class BoardTests {
 
     @Test
     public void testClearMethod_successEmptyBoard(){
-        board = new Board();
+        board = new Board();                        //initialisieren
         Assertions.assertDoesNotThrow(() -> {
             try {
                 board.clear();

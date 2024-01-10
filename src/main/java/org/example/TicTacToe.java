@@ -23,7 +23,7 @@ public class TicTacToe {
 
     }
 
-    protected int[] getCoordinates() {
+    public int[] getCoordinates() {
         Scanner scanner = new Scanner(System.in);
         int row = -1, column = -1;
 
@@ -78,7 +78,7 @@ public class TicTacToe {
         }
     }
 
-    public static void main(String[] args) {
+    public void restart_game_wrapper() {
         Scanner scanner = new Scanner(System.in);
         String playAgain;
 
@@ -92,8 +92,7 @@ public class TicTacToe {
 
             System.out.println("Do you want to play again? (yes/no)");
             playAgain = scanner.nextLine();
-        } while (playAgain.equalsIgnoreCase("yes"));
-
+        } while (playAgain.equalsIgnoreCase("yes") || playAgain.equalsIgnoreCase("y"));
         System.out.println("Thank you for playing!");
     }
 

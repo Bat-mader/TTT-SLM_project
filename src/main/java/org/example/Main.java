@@ -8,6 +8,6 @@ public class Main {
     public static void main(String[] args) throws PlayfieldsDimensionException, PlayfieldsCharInputException, PlayfieldsSetOccupiedException {
         TicTacToe game = new TicTacToe();
 
-        game.start();
+        game.restart_game_wrapper();
     }
 }

@@ -8,7 +8,7 @@ import src.main.java.org.example.PlayfieldsExceptions.PlayfieldsSetOccupiedExcep
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class TicTacToeTest {
+class TicTacToeTests {
     private TicTacToe game;
 
     @BeforeEach
@@ -51,6 +51,4 @@ class TicTacToeTest {
         board.place(2, 2, 'X');
         assertFalse(game.hasWinner());
     }
-
-
 }
