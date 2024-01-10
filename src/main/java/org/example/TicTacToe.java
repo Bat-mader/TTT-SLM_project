@@ -9,17 +9,21 @@ import java.util.Scanner;
 public class TicTacToe {
     private final Player player1;
     private final Player player2;
-    private Player currentPlayer;
-    private final Board board;
+    Player currentPlayer;
+    final Board board;
+    private final Scanner scanner;
+
 
     public TicTacToe(){
         this.player1 = new Player('X');
         this.player2 = new Player('O');
         this.board = new Board();
         this.currentPlayer = this.player1;
+        this.scanner = new Scanner(System.in);
+
     }
 
-    private int[] getCoordinates() {
+    protected int[] getCoordinates() {
         Scanner scanner = new Scanner(System.in);
         int row = -1, column = -1;
 
@@ -93,7 +97,7 @@ public class TicTacToe {
         System.out.println("Thank you for playing!");
     }
 
-    private void switchCurrentPlayer(){
+    void switchCurrentPlayer(){
         if(this.currentPlayer == this.player1){
             this.currentPlayer = this.player2;
             return;
@@ -104,7 +108,7 @@ public class TicTacToe {
         }
     }
 
-    private boolean hasWinner() throws PlayfieldsDimensionException {
+    boolean hasWinner() throws PlayfieldsDimensionException {
         for (int i = 0; i < 3; i++) {
             if ((board.get_cell(i,0) != ' ' && board.get_cell(i,0) == board.get_cell(i,1) && board.get_cell(i,1) == board.get_cell(i,2)) ||
                     (board.get_cell(0,i) != ' ' && board.get_cell(0,i) == board.get_cell(1,i) && board.get_cell(1,i) == board.get_cell(2,i))) {
@@ -116,4 +120,13 @@ public class TicTacToe {
         return (board.get_cell(0,0) != ' ' && board.get_cell(0,0) == board.get_cell(1,1) && board.get_cell(1,1) == board.get_cell(2,2)) ||
                 (board.get_cell(0,2) != ' ' && board.get_cell(0,2) == board.get_cell(1,1) && board.get_cell(1,1) == board.get_cell(2,0));
     }
+
+    public Board getBoard() {
+        return board;
+    }
+
+    public Player getCurrentPlayer() {
+        return this.currentPlayer;
+    }
+
 }
