@@ -1,8 +1,6 @@
-package org.example.PlayfieldsExceptions;
+package src.main.java.org.example.PlayfieldsExceptions;
 
-import org.example.PlayfieldsException;
-
-public class PlayfieldsClearFailed extends PlayfieldsException {
+public class PlayfieldsClearFailed extends Exception {
     public PlayfieldsClearFailed(String message){
         super(message);
     }

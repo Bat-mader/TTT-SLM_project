@@ -1,9 +1,9 @@
 package org.example;
 
-import org.example.PlayfieldsExceptions.PlayfieldsCharInputException;
-import org.example.PlayfieldsExceptions.PlayfieldsClearFailed;
-import org.example.PlayfieldsExceptions.PlayfieldsDimensionException;
-import org.example.PlayfieldsExceptions.PlayfieldsSetOccupiedException;
+import src.main.java.org.example.PlayfieldsExceptions.PlayfieldsCharInputException;
+import src.main.java.org.example.PlayfieldsExceptions.PlayfieldsClearFailed;
+import src.main.java.org.example.PlayfieldsExceptions.PlayfieldsDimensionException;
+import src.main.java.org.example.PlayfieldsExceptions.PlayfieldsSetOccupiedException;
 
 //As a player, I want to be able to see the current state of the game, so that I can keep track of the moves made by both myself
 public class Board {
@@ -71,7 +71,7 @@ public class Board {
         }
     }
 
-    public void clear() throws PlayfieldsClearFailed{
+    public void clear() throws PlayfieldsClearFailed {
         boolean state = true;
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
@@ -94,6 +94,13 @@ public class Board {
                     throw new PlayfieldsClearFailed(String.format("Clearing the Gameboard failed at cell[%d][%d]", i, j));
                 }
             }
+        }
+    }
+
+    public void print(){
+        for (int i = 0; i < 3; i++) {
+            System.out.printf(" | %s | %s | %s |\n", cells[i][0], cells[i][1], cells[i][2]);
+            System.out.print(" -------------\n");
         }
     }
 

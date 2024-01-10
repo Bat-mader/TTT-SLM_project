@@ -1,8 +1,6 @@
-package org.example.PlayfieldsExceptions;
+package src.main.java.org.example.PlayfieldsExceptions;
 
-import org.example.PlayfieldsException;
-
-public class PlayfieldsSetOccupiedException extends PlayfieldsException {
+public class PlayfieldsSetOccupiedException extends Exception {
 
     public PlayfieldsSetOccupiedException(String message){
         super(message);

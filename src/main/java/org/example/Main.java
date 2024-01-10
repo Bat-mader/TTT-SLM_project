@@ -1,10 +1,13 @@
 package org.example;
 
-public class Main {
-    public static void main(String[] args) {
-        System.out.println("Hello world!");
-        Board board = new Board();
+import src.main.java.org.example.PlayfieldsExceptions.PlayfieldsCharInputException;
+import src.main.java.org.example.PlayfieldsExceptions.PlayfieldsDimensionException;
+import src.main.java.org.example.PlayfieldsExceptions.PlayfieldsSetOccupiedException;
 
-        board.printout_game();
+public class Main {
+    public static void main(String[] args) throws PlayfieldsDimensionException, PlayfieldsCharInputException, PlayfieldsSetOccupiedException {
+        TicTacToe game = new TicTacToe();
+
+        game.restart_game_wrapper();
     }
 }

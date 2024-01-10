@@ -1,4 +1,5 @@
-package org.example;
+package src.main.java.org.example.PlayfieldsExceptions;
+
 
 public class PlayfieldsException extends Exception {
 
